@@ -1,34 +1,52 @@
 import React from "react";
+import styled from "styled-components";
+import { AssetCacher } from "./AssetCacher";
+import { IMAGE_MAIN } from "./assetURLs";
+import { GlobalStyle } from "./GlobalStyles";
 
 const IMAGE_WIDTH = 400;
 const IMAGE_HEIGHT = 600;
 
 const App: React.FC = () => {
   return (
-    <div style={{ padding: "1em" }}>
-      <p style={{ marginBottom: "1em" }}>
-        Trying to see if this image gets precached...
-      </p>
+    <>
+      <GlobalStyle />
 
-      <div
-        style={{
-          background: "pink",
-          width: IMAGE_WIDTH,
-          height: IMAGE_HEIGHT,
-          marginBottom: "1em",
-        }}
-      >
-        <img
-          src="/image.jpg"
-          alt=""
-          width={IMAGE_WIDTH}
-          height={IMAGE_HEIGHT}
-        />
-      </div>
+      <Container>
+        <Title>Trying to see if this image gets precached...</Title>
 
-      <p>version: {process.env.REACT_APP_GITHASH}</p>
-    </div>
+        <ImageContainer>
+          <img
+            src={IMAGE_MAIN}
+            alt=""
+            width={IMAGE_WIDTH}
+            height={IMAGE_HEIGHT}
+          />
+        </ImageContainer>
+
+        <AssetCacher />
+
+        {process.env.isProduction && (
+          <p>version: {process.env.REACT_APP_GITHASH}</p>
+        )}
+      </Container>
+    </>
   );
 };
 
 export default App;
+
+const Container = styled.div`
+  padding: 1em;
+`;
+
+const Title = styled.h1`
+  margin-bottom: 1em;
+`;
+
+const ImageContainer = styled.div`
+  background: pink;
+  width: ${IMAGE_WIDTH}px;
+  height: ${IMAGE_HEIGHT}px;
+  margin-bottom: 1em;
+`;
