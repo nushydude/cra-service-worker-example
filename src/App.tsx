@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "1em" }}>
+      <p style={{ marginBottom: "1em" }}>
+        Trying to see if this image gets precached...
+      </p>
+
+      <div style={{ background: "pink", display: "inline-block" }}>
+        <img src="/image.jpg" alt="" width={400} height="auto" />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
