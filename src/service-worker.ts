@@ -55,20 +55,20 @@ registerRoute(
 
 // An example runtime caching route for requests that aren't handled by the
 // precache, in this case same-origin .png requests like those from in public/
-registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith(".jpg"),
-  // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new StaleWhileRevalidate({
-    cacheName: "images",
-    plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
-    ],
-  })
-);
+// registerRoute(
+//   // Add in any other file extensions or routing criteria as needed.
+//   ({ url }) =>
+//     url.origin === self.location.origin && url.pathname.endsWith(".jpg"),
+//   // Customize this strategy as needed, e.g., by changing to CacheFirst.
+//   new StaleWhileRevalidate({
+//     cacheName: "images",
+//     plugins: [
+//       // Ensure that once this runtime cache reaches a maximum size the
+//       // least-recently used images are removed.
+//       new ExpirationPlugin({ maxEntries: 50 }),
+//     ],
+//   })
+// );
 
 const ASSET_CACHE = "assets-cache-v1";
 
@@ -77,16 +77,11 @@ const cacheOnlyAssetsStrategy = new CacheOnly({
 });
 
 registerRoute(
-  ({ url }) => {
-    console.log("url.origin:", url.origin);
-    console.log("self.location.origin:", self.location.origin);
-    console.log("url.pathname:", url.pathname);
-
-    return (
-      url.origin === self.location.origin &&
-      (url.pathname.endsWith(".jpg") || url.pathname.endsWith(".ttf"))
-    );
-  },
+  ({ url }) =>
+    url.origin === self.location.origin &&
+    (url.pathname.endsWith(".jpg") ||
+      url.pathname.endsWith(".ttf") ||
+      url.pathname.endsWith(".png")),
 
   async ({ event, request }) => {
     const cache = await caches.open(ASSET_CACHE);
