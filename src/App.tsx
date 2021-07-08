@@ -24,7 +24,7 @@ const App: React.FC = () => {
           />
         </ImageContainer>
 
-        <AssetCacher />
+        {/* <AssetCacher /> */}
 
         {process.env.NODE_ENV !== "development" && (
           <p>version: {process.env.REACT_APP_GITHASH}</p>
