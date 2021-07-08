@@ -11,7 +11,12 @@ const App: React.FC = () => {
       </p>
 
       <div
-        style={{ background: "pink", width: IMAGE_WIDTH, height: IMAGE_HEIGHT }}
+        style={{
+          background: "pink",
+          width: IMAGE_WIDTH,
+          height: IMAGE_HEIGHT,
+          marginBottom: "1em",
+        }}
       >
         <img
           src="/image.jpg"
@@ -20,6 +25,8 @@ const App: React.FC = () => {
           height={IMAGE_HEIGHT}
         />
       </div>
+
+      <p>version: {process.env.REACT_APP_GITHASH}</p>
     </div>
   );
 };
