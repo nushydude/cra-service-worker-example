@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { AssetCacher } from "./AssetCacher";
+// import { AssetCacher } from "./AssetCacher";
 import { IMAGE_MAIN } from "./assetURLs";
 import { GlobalStyle } from "./GlobalStyles";
 
