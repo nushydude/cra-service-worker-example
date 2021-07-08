@@ -20,7 +20,11 @@ export const AssetCacher: React.FC = () => {
             const successURLs = await Promise.all(
               ASSET_URLS.map(async (url) => {
                 try {
-                  await cache.add(url);
+                  const cached = await cache.match(url);
+
+                  if (!cached) {
+                    await cache.add(url);
+                  }
 
                   return url;
                 } catch (error) {
