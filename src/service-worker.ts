@@ -77,9 +77,17 @@ const cacheOnlyAssetsStrategy = new CacheOnly({
 });
 
 registerRoute(
-  ({ url }) =>
-    url.origin === self.location.origin &&
-    (url.pathname.endsWith(".jpg") || url.pathname.endsWith(".ttf")),
+  ({ url }) => {
+    console.log("url.origin:", url.origin);
+    console.log("self.location.origin:", self.location.origin);
+    console.log("url.pathname:", url.pathname);
+
+    return (
+      url.origin === self.location.origin &&
+      (url.pathname.endsWith(".jpg") || url.pathname.endsWith(".ttf"))
+    );
+  },
+
   async ({ event, request }) => {
     const cache = await caches.open(ASSET_CACHE);
 
