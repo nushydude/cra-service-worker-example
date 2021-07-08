@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
         <AssetCacher />
 
-        {process.env.NODE_ENV === "production" && (
+        {process.env.NODE_ENV !== "development" && (
           <p>version: {process.env.REACT_APP_GITHASH}</p>
         )}
       </Container>
