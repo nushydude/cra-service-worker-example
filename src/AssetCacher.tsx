@@ -17,6 +17,7 @@ export const AssetCacher: React.FC = () => {
           const cache = await caches.open(CACHE_NAME);
 
           if (cache) {
+            // cache assets
             const successURLs = await Promise.all(
               ASSET_URLS.map(async (url) => {
                 try {
@@ -34,6 +35,26 @@ export const AssetCacher: React.FC = () => {
                 return null;
               })
             );
+
+            // remove deprecated assets
+            const requestInCache = await cache.keys();
+            const urlsInCache = requestInCache.map((r) => r.url);
+
+            console.log("urlsInCache:", urlsInCache);
+
+            const deprecatedURLs = urlsInCache.filter(
+              (url) => !ASSET_URLS.includes(url)
+            );
+
+            try {
+              await Promise.all(
+                deprecatedURLs.map(async (url) => cache.delete(url))
+              );
+
+              console.log("deleted:", deprecatedURLs);
+            } catch (error) {
+              console.error(error);
+            }
 
             setCachedFiles(successURLs.filter(nonNullable).length);
           }
